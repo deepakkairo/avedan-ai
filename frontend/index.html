@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AVEDAN AI (आवेदन एआई) — Citizen Government Schemes Assistant</title>
+  <meta name="description" content="Transparent, accessible assistant for Indian government schemes with verified official application links, DigiLocker safety, and zero-fee transparency.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #1e3a8a;
+      --primary-light: #3b82f6;
+      --primary-dark: #172554;
+      --accent: #d97706;
+      --accent-light: #fef3c7;
+      --success: #15803d;
+      --success-light: #dcfce7;
+      --danger: #b91c1c;
+      --danger-light: #fee2e2;
+      --warning: #b45309;
+      --warning-light: #fef3c7;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header & Top Bar */
+    .top-strip {
+      background: linear-gradient(90deg, #ff9933 0%, #ffffff 50%, #138808 100%);
+      height: 4px;
+      width: 100%;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-logo {
+      background: var(--primary);
+      color: white;
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.25rem;
+      box-shadow: 0 2px 4px rgba(30, 58, 138, 0.25);
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--primary-dark);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .brand-text p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .zero-fee-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--success-light);
+      color: var(--success);
+      padding: 0.35rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid rgba(21, 128, 61, 0.2);
+    }
+
+    .lang-select {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.4rem 0.65rem;
+      border-radius: 8px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* Trust & Security Notice Banner */
+    .trust-banner {
+      background: #eff6ff;
+      border-bottom: 1px solid #bfdbfe;
+      padding: 0.75rem 1rem;
+    }
+
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      color: #1e40af;
+    }
+
+    .trust-item svg {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      margin-top: 1px;
+    }
+
+    /* Main Container & Layout */
+    .container {
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Navigation Tabs */
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      padding-bottom: 2px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      white-space: nowrap;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    /* Search & Filter Toolbar */
+    .search-toolbar {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .search-input-group {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .search-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .search-input:focus {
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .filter-chips {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+
+    .chip {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .toggle-group {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text);
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+
+    /* Scheme Cards Grid */
+    .schemes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .scheme-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .scheme-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-header {
+      margin-bottom: 0.75rem;
+    }
+
+    .domain-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      margin-bottom: 0.5rem;
+    }
+
+    .domain-badge.verified {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .domain-badge.unverified {
+      background: var(--danger-light);
+      color: var(--danger);
+      border: 1px solid #fecaca;
+    }
+
+    .scheme-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.25rem;
+      line-height: 1.35;
+    }
+
+    .scheme-ministry {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .scheme-desc {
+      font-size: 0.85rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .auth-type-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      margin-bottom: 0.75rem;
+    }
+
+    .auth-type-pill.digilocker {
+      background: #faf5ff;
+      color: #7e22ce;
+      border: 1px solid #e9d5ff;
+    }
+
+    .auth-type-pill.aadhaar {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    .auth-type-pill.unverified {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+
+    /* Fee Breakdown Box in Card */
+    .fee-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.65rem 0.85rem;
+      margin-bottom: 1rem;
+      font-size: 0.78rem;
+    }
+
+    .fee-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .fee-row:last-child {
+      margin-bottom: 0;
+      padding-top: 0.25rem;
+      border-top: 1px dashed var(--border);
+      font-weight: 700;
+      color: var(--success);
+    }
+
+    .fee-verified-tag {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* Card Actions */
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+
+    .btn-continue-official {
+      background: #15803d;
+      color: white;
+      text-decoration: none;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      transition: background 0.15s;
+    }
+
+    .btn-continue-official:hover {
+      background: #166534;
+    }
+
+    .unverified-banner-btn {
+      background: var(--danger-light);
+      color: var(--danger);
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      border: 1px solid #fecaca;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .card-secondary-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-secondary {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface);
+      border-color: var(--primary-light);
+      color: var(--primary);
+    }
+
+    /* Modal / Drawer for Details & Safety */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 50;
+      padding: 1rem;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 640px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+
+    /* Chat Assistant Drawer / Floating Button */
+    .floating-chat-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.85rem 1.25rem;
+      border-radius: 9999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 14px rgba(30, 58, 138, 0.4);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 30;
+      transition: transform 0.2s;
+    }
+
+    .floating-chat-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .chat-drawer {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 1.5rem;
+      width: 380px;
+      max-width: calc(100vw - 3rem);
+      height: 520px;
+      max-height: calc(100vh - 7rem);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: none;
+      flex-direction: column;
+      z-index: 40;
+      overflow: hidden;
+    }
+
+    .chat-drawer.open {
+      display: flex;
+    }
+
+    .chat-header {
+      background: var(--primary);
+      color: white;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-header h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      background: #fdfdfd;
+    }
+
+    .chat-bubble {
+      padding: 0.65rem 0.85rem;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      max-width: 85%;
+    }
+
+    .chat-bubble.assistant {
+      background: #f1f5f9;
+      color: var(--text);
+      align-self: flex-start;
+      border: 1px solid var(--border);
+    }
+
+    .chat-bubble.user {
+      background: var(--primary);
+      color: white;
+      align-self: flex-end;
+    }
+
+    .chat-input-area {
+      padding: 0.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 0.5rem;
+      background: var(--surface);
+    }
+
+    .chat-input {
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.85rem;
+      outline: none;
+      font-family: inherit;
+    }
+
+    .chat-send-btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.5rem 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Section content styling */
+    .section-view {
+      display: none;
+    }
+
+    .section-view.active {
+      display: block;
+    }
+
+    .guide-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .guide-card h3 {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .guide-card p {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Responsiveness */
+    @media (max-width: 768px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      .schemes-grid {
+        grid-template-columns: 1fr;
+      }
+      .chat-drawer {
+        right: 1rem;
+        bottom: 5rem;
+        width: calc(100vw - 2rem);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Tricolor Top Accent -->
+  <div class="top-strip" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <a href="#" class="brand" onclick="switchTab('schemes')">
+        <div class="brand-logo">आ</div>
+        <div class="brand-text">
+          <h1 id="ui-brand-title">AVEDAN AI</h1>
+          <p id="ui-brand-sub">Government Scheme Assistant • भारत सरकार योजना सहायक</p>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div class="zero-fee-pill" title="AVEDAN never charges service fees">
+          <span>🛡️</span>
+          <span id="ui-zero-fee-badge">₹0 Service Fee • 100% Free</span>
+        </div>
+
+        <select id="lang-select" class="lang-select" onchange="changeLanguage(this.value)" aria-label="Select Language">
+          <option value="en">English</option>
+          <option value="hi" selected>हिन्दी (Hindi)</option>
+          <option value="mr">मराठी (Marathi)</option>
+          <option value="ta">தமிழ் (Tamil)</option>
+          <option value="bn">বাংলা (Bengali)</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <!-- Security & Trust Banner -->
+  <div class="trust-banner" role="region" aria-label="Trust and Security Policy">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span id="ui-banner-no-creds"><strong>Zero Credential Policy:</strong> AVEDAN never asks for your DigiLocker PIN, password, or OTP.</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        <span id="ui-banner-verified-links"><strong>Verified Links:</strong> Every scheme directs to official .gov.in or .nic.in portals only.</span>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+        <span id="ui-banner-direct-pay"><strong>Direct Govt Payments:</strong> All fees are paid directly to government portals. No Razorpay / No intermediaries.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs" role="tablist">
+      <button class="tab-btn active" id="tab-schemes" onclick="switchTab('schemes')" role="tab" aria-selected="true">
+        <span>🏛️</span> <span id="ui-tab-schemes">Explore Schemes</span>
+      </button>
+      <button class="tab-btn" id="tab-tracker" onclick="switchTab('tracker')" role="tab" aria-selected="false">
+        <span>📋</span> <span id="ui-tab-tracker">My Application Tracker</span>
+      </button>
+      <button class="tab-btn" id="tab-digilocker" onclick="switchTab('digilocker')" role="tab" aria-selected="false">
+        <span>🔒</span> <span id="ui-tab-digilocker">DigiLocker Safety</span>
+      </button>
+      <button class="tab-btn" id="tab-policy" onclick="switchTab('policy')" role="tab" aria-selected="false">
+        <span>💳</span> <span id="ui-tab-policy">Zero-Fee & Payment Policy</span>
+      </button>
+    </nav>
+
+    <!-- SECTION 1: SCHEME DIRECTORY VIEW -->
+    <section id="view-schemes" class="section-view active">
+
+      <!-- Search & Filters -->
+      <div class="search-toolbar">
+        <div class="search-input-group">
+          <input type="text" id="scheme-search-input" class="search-input" placeholder="Search schemes e.g. किसान, health, scholarship, driving licence..." onkeydown="if(event.key==='Enter') searchSchemes()">
+          <button class="btn-primary" onclick="searchSchemes()">
+            <span>🔍</span> <span id="ui-btn-search">Search</span>
+          </button>
+        </div>
+
+        <!-- Category Chips -->
+        <div class="filter-chips" id="category-chips">
+          <button class="chip active" data-cat="all" onclick="filterCategory('all', this)">All Schemes</button>
+          <button class="chip" data-cat="agriculture" onclick="filterCategory('agriculture', this)">🌾 Agriculture</button>
+          <button class="chip" data-cat="healthcare" onclick="filterCategory('healthcare', this)">🏥 Healthcare</button>
+          <button class="chip" data-cat="education" onclick="filterCategory('education', this)">🎓 Education</button>
+          <button class="chip" data-cat="identity" onclick="filterCategory('identity', this)">🪪 Identity Cards</button>
+          <button class="chip" data-cat="transport" onclick="filterCategory('transport', this)">🚗 Transport</button>
+          <button class="chip" data-cat="housing" onclick="filterCategory('housing', this)">🏠 Housing</button>
+        </div>
+
+        <!-- Filter Toggles -->
+        <div class="toggle-group">
+          <label class="toggle-label">
+            <input type="checkbox" id="toggle-digilocker" onchange="searchSchemes()">
+            <span id="ui-filter-digilocker">DigiLocker supported on portal</span>
+          </label>
+          <label class="toggle-label">
+            <input type="checkbox" id="toggle-free" onchange="searchSchemes()">
+            <span id="ui-filter-free">Free Schemes Only (₹0 Fee)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Schemes Grid -->
+      <div class="schemes-grid" id="schemes-grid-container">
+        <!-- Dynamic Cards rendered via JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 2: APPLICATION TRACKER VIEW -->
+    <section id="view-tracker" class="section-view">
+      <div class="guide-card">
+        <h3>📋 <span id="ui-tracker-title">Citizen Application Journey Tracker</span></h3>
+        <p id="ui-tracker-desc">Track your progress for schemes you are applying for. AVEDAN never claims an application is submitted or paid unless officially verified by government APIs. All self-reported progress is labelled transparently.</p>
+      </div>
+
+      <div class="schemes-grid" id="tracker-grid-container">
+        <!-- Rendered applications -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: DIGILOCKER SAFETY VIEW -->
+    <section id="view-digilocker" class="section-view">
+      <div class="guide-card" style="border-left: 4px solid var(--primary);">
+        <h3>🔒 <span id="ui-dl-status-title">DigiLocker Integration Status</span></h3>
+        <div style="margin: 0.5rem 0;">
+          <span class="auth-type-pill digilocker" id="dl-status-badge">Direct API: Optional & Disabled (Awaiting MeitY Partner Approval)</span>
+        </div>
+        <p id="ui-dl-status-explanation" style="margin-top: 0.5rem;">In accordance with Indian Digital Personal Data Protection standards, AVEDAN AI does not intercept login credentials or simulate DigiLocker logins. When a government scheme supports DigiLocker, you will authenticate directly on the official portal via MeriPehchaan SSO.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>🛡️ <span id="ui-dl-rules-title">Official Guidelines for Indian Citizens</span></h3>
+        <div id="digilocker-guidelines-list" style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <!-- Loaded via API -->
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: PAYMENT POLICY VIEW -->
+    <section id="view-policy" class="section-view">
+      <div class="guide-card" style="border-left: 4px solid var(--success);">
+        <h3>💳 <span id="ui-fee-policy-title">AVEDAN AI Zero-Fee Commitment</span></h3>
+        <p><strong>AVEDAN AI is a 100% free public service for Indian citizens.</strong> We do not charge service fees, platform fees, or agent commissions.</p>
+      </div>
+
+      <div class="guide-card">
+        <h3>🏛️ <span id="ui-fee-govt-title">Direct Government Fee Payment Rules</span></h3>
+        <ul style="padding-left: 1.25rem; font-size: 0.88rem; line-height: 1.6; color: var(--text);">
+          <li><strong>Official Fees Only:</strong> We only display application fees that are verified from official government gazettes or portals (e.g. ₹200 for Driving Licence on Sarathi Parivahan; ₹0 for PM-Kisan and Ayushman Bharat).</li>
+          <li><strong>Direct Portal Payment:</strong> When an official scheme requires a fee, you pay the government directly on their official website (e.g., Bharatkosh, State Cyber Treasury, or Sarathi payment gateway).</li>
+          <li><strong>No Middleman Gateway:</strong> AVEDAN never routes government registration fees through its own bank account or private payment gateways (like Razorpay).</li>
+          <li><strong>No Fake Receipts:</strong> AVEDAN never generates fake payment receipts or false payment-success notifications. Always retain the official transaction receipt provided by the government portal.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Scheme Detail Modal -->
+  <div class="modal-backdrop" id="scheme-detail-modal" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <span class="domain-badge verified" id="modal-domain-badge">✓ Official Portal</span>
+          <h2 id="modal-title" style="font-size: 1.25rem; font-weight: 800; color: var(--primary-dark);"></h2>
+          <p id="modal-ministry" style="font-size: 0.8rem; color: var(--text-muted);"></p>
+        </div>
+        <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem;" id="ui-modal-desc-heading">Description</h4>
+        <p id="modal-desc" style="font-size: 0.88rem;"></p>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem;" id="ui-modal-elig-heading">Eligibility Criteria</h4>
+        <p id="modal-elig" style="font-size: 0.88rem;"></p>
+      </div>
+
+      <div style="margin-bottom: 1rem;">
+        <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 0.25rem;" id="ui-modal-docs-heading">Required Documents Checklist</h4>
+        <ul id="modal-docs" style="padding-left: 1.25rem; font-size: 0.88rem;"></ul>
+      </div>
+
+      <div class="guide-card" style="background: #f8fafc; border-left: 4px solid var(--primary); margin-bottom: 1rem;">
+        <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 0.25rem;" id="ui-modal-auth-heading">Portal Authentication Instructions</h4>
+        <p id="modal-auth-instructions" style="font-size: 0.82rem;"></p>
+        <p id="modal-dl-notes" style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.25rem;"></p>
+      </div>
+
+      <div class="fee-box" style="margin-bottom: 1.25rem;">
+        <div class="fee-row">
+          <span>Official Government Fee:</span>
+          <span id="modal-fee-govt" style="font-weight: 700;">₹0.00</span>
+        </div>
+        <div class="fee-row">
+          <span>AVEDAN AI Service Fee:</span>
+          <span style="font-weight: 700; color: var(--success);">₹0.00 (Free)</span>
+        </div>
+        <div id="modal-fee-source" class="fee-verified-tag"></div>
+      </div>
+
+      <div id="modal-action-area">
+        <!-- Rendered button -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Chat Assistant Button -->
+  <button class="floating-chat-btn" onclick="toggleChat()" aria-label="Open AVEDAN AI Assistant">
+    <span>💬</span>
+    <span id="ui-chat-btn-label">Ask AVEDAN AI</span>
+  </button>
+
+  <!-- Interactive Chat Drawer -->
+  <div class="chat-drawer" id="chat-drawer" role="complementary" aria-label="Scheme Assistant Chat">
+    <div class="chat-header">
+      <div style="display: flex; align-items: center; gap: 0.4rem;">
+        <span>🤖</span>
+        <h3 id="ui-chat-title">AVEDAN AI Assistant</h3>
+      </div>
+      <button onclick="toggleChat()" style="background: none; border: none; color: white; font-size: 1.25rem; cursor: pointer;">&times;</button>
+    </div>
+
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-bubble assistant" id="chat-welcome-msg">
+        नमस्ते! मैं आवेदन एआई (AVEDAN AI) हूँ। आप किसी भी सरकारी योजना के बारे में पूछ सकते हैं। हम कभी भी आपका पिन या ओटीपी नहीं मांगते, और हमारी सेवा पूर्णतः निःशुल्क (₹0) है।
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" id="chat-input-text" class="chat-input" placeholder="Type scheme or query..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+      <button class="chat-send-btn" onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+
+  <!-- Frontend Logic & API Integration -->
+  <script>
+    const API_BASE = window.location.origin.includes('localhost') ? 'http://localhost:8000/api' : '/api';
+    let currentLanguage = 'hi';
+    let currentCategory = 'all';
+    let cachedSchemes = [];
+    let trackedApplications = [];
+
+    // Verified Scheme Registry for Standalone Netlify Deployment
+    const FALLBACK_SCHEMES = [
+      {
+        id: "pm-kisan",
+        name: "PM Kisan Samman Nidhi",
+        name_hi: "प्रधानमंत्री किसान सम्मान निधि",
+        category: "agriculture",
+        ministry: "Ministry of Agriculture and Farmers Welfare",
+        state: "central",
+        description: "Income support of ₹6,000 per year in three equal installments to all eligible landholding farmer families across India.",
+        description_hi: "सभी पात्र भूमिधारक किसान परिवारों को प्रति वर्ष ₹6,000 की वित्तीय सहायता तीन समान किस्तों में प्रदान की जाती है।",
+        eligibility: "Small and marginal farmers owning cultivable land in their name. Exclusion criteria apply to institutional landholders.",
+        eligibility_hi: "कृषि योग्य भूमि रखने वाले छोटे और सीमांत किसान। आयकर दाता और संस्थागत भूमिधारक पात्र नहीं हैं।",
+        documents_required: ["Aadhaar Card", "Land ownership records (Khatoni/Khasra)", "Active Bank Account with Aadhaar seeding", "Mobile linked to Aadhaar"],
+        official_url: "https://pmkisan.gov.in",
+        application_url: "https://pmkisan.gov.in/RegistrationFormNew.aspx",
+        application_url_verified: true,
+        auth_type: "aadhaar_otp",
+        auth_instructions: "Online registration requires Aadhaar e-KYC using OTP sent to your Aadhaar-linked mobile number, or biometric authentication at a local CSC center.",
+        digilocker_supported_on_portal: false,
+        digilocker_notes: "DigiLocker is not directly required for the PM-Kisan registration form. Farmers authenticate directly via Aadhaar OTP on pmkisan.gov.in.",
+        fee_amount: 0.0,
+        fee_verified: true,
+        fee_source_url: "https://pmkisan.gov.in",
+        avedan_service_fee: 0.0
+      },
+      {
+        id: "ayushman-bharat",
+        name: "Ayushman Bharat PM-JAY",
+        name_hi: "आयुष्मान भारत प्रधानमंत्री जन आरोग्य योजना (PM-JAY)",
+        category: "healthcare",
+        ministry: "National Health Authority / MoHFW",
+        state: "central",
+        description: "Cashless health cover of up to ₹5,00,000 per family per year for secondary and tertiary care hospitalization in empaneled public and private hospitals.",
+        description_hi: "पात्र परिवारों को सरकारी और सूचीबद्ध निजी अस्पतालों में द्वितीयक और तृतीयक देखभाल के लिए प्रति वर्ष ₹5,00,000 तक का कैशलेस स्वास्थ्य कवर।",
+        eligibility: "Households identified under SECC 2011 criteria or state ration card lists, and all senior citizens aged 70+ irrespective of income.",
+        eligibility_hi: "सामाजिक आर्थिक जाति जनगणना (SECC 2011) के तहत पात्र परिवार, तथा 70 वर्ष से अधिक आयु के सभी वरिष्ठ नागरिक।",
+        documents_required: ["Aadhaar Card", "Ration Card / Family ID", "Aadhaar-linked Mobile Number"],
+        official_url: "https://pmjay.gov.in",
+        application_url: "https://beneficiary.nha.gov.in",
+        application_url_verified: true,
+        auth_type: "digilocker_sso",
+        auth_instructions: "Citizens authenticate directly on the official NHA Beneficiary portal using MeriPehchaan SSO / DigiLocker, Aadhaar OTP, or Face Authentication.",
+        digilocker_supported_on_portal: true,
+        digilocker_notes: "The official beneficiary.nha.gov.in portal provides direct login through MeriPehchaan / DigiLocker for instant family e-KYC.",
+        fee_amount: 0.0,
+        fee_verified: true,
+        fee_source_url: "https://beneficiary.nha.gov.in",
+        avedan_service_fee: 0.0
+      },
+      {
+        id: "national-scholarship-portal",
+        name: "National Scholarship Portal (NSP)",
+        name_hi: "राष्ट्रीय छात्रवृत्ति पोर्टल (NSP)",
+        category: "education",
+        ministry: "Ministry of Electronics and Information Technology (MeitY)",
+        state: "central",
+        description: "Unified platform offering over 100+ scholarships from central ministries and state governments for Pre-Matric, Post-Matric, Higher Education, and Minorities.",
+        description_hi: "विभिन्न मंत्रालयों द्वारा पूर्व-मैट्रिक, उत्तर-मैट्रिक, उच्च शिक्षा और अल्पसंख्यक छात्रों के लिए 100 से अधिक छात्रवृत्तियों का एकीकृत राष्ट्रीय पोर्टल।",
+        eligibility: "Students enrolled in recognized schools/colleges meeting income criteria (usually under ₹2.5 Lakhs annually) and merit cutoffs.",
+        eligibility_hi: "मान्यता प्राप्त संस्थानों में अध्ययनरत छात्र जो वार्षिक आय और मेरिट शर्तों को पूरा करते हैं।",
+        documents_required: ["Aadhaar Card", "DigiLocker Account", "Income Certificate", "Caste Certificate", "Bank Account linked to Aadhaar", "Academic Marksheet"],
+        official_url: "https://scholarships.gov.in",
+        application_url: "https://scholarships.gov.in",
+        application_url_verified: true,
+        auth_type: "digilocker_sso",
+        auth_instructions: "NSP mandates One-Time Registration (OTR). Students can use DigiLocker to auto-verify identity and fetch board marksheets without physical upload.",
+        digilocker_supported_on_portal: true,
+        digilocker_notes: "Official NSP portal integrates directly with DigiLocker for seamless verification of certificates.",
+        fee_amount: 0.0,
+        fee_verified: true,
+        fee_source_url: "https://scholarships.gov.in",
+        avedan_service_fee: 0.0
+      },
+      {
+        id: "parivahan-driving-licence",
+        name: "Sarathi Parivahan - Driving & Learner Licence",
+        name_hi: "सारथी परिवहन - लर्नर एवं ड्राइविंग लाइसेंस",
+        category: "transport",
+        ministry: "Ministry of Road Transport and Highways (MoRTH)",
+        state: "central",
+        description: "Online application service for Learner's Licence and Driving Licence issuance and renewal across all Indian States and Union Territories.",
+        description_hi: "सभी राज्यों और केंद्र शासित प्रदेशों में ऑनलाइन लर्नर और स्थायी ड्राइविंग लाइसेंस आवेदन और नवीनीकरण सेवा।",
+        eligibility: "Citizens aged 18+ (or 16+ for gearless 50cc two-wheelers) residing in the applying RTO jurisdiction.",
+        eligibility_hi: "18 वर्ष या उससे अधिक आयु के नागरिक (गियरलेस दोपहिया के लिए 16 वर्ष) जो संबंधित आरटीओ क्षेत्र में रहते हैं।",
+        documents_required: ["Aadhaar Card (for contactless online test)", "Age Proof (10th Marksheet or Birth Certificate)", "Address Proof", "Passport Size Photograph"],
+        official_url: "https://parivahan.gov.in",
+        application_url: "https://sarathi.parivahan.gov.in/sarathiservice/stateSelection.do",
+        application_url_verified: true,
+        auth_type: "digilocker_sso",
+        auth_instructions: "Applicants can authenticate via Aadhaar e-KYC or link documents via DigiLocker on Sarathi Parivahan to take the online LL test from home.",
+        digilocker_supported_on_portal: true,
+        digilocker_notes: "DigiLocker is natively integrated into Sarathi Parivahan for fetching educational certificates and identity proof.",
+        fee_amount: 200.0,
+        fee_verified: true,
+        fee_source_url: "https://parivahan.gov.in/parivahan/en/content/licensing-related-fees-and-charges",
+        avedan_service_fee: 0.0
+      },
+      {
+        id: "instant-e-pan",
+        name: "Instant e-PAN (Income Tax Department)",
+        name_hi: "तत्काल ई-पैन (आयकर विभाग)",
+        category: "identity",
+        ministry: "Ministry of Finance - Central Board of Direct Taxes",
+        state: "central",
+        description: "Paperless and instant allotment of Permanent Account Number (e-PAN) in digital PDF format within 10 minutes based on Aadhaar e-KYC.",
+        description_hi: "आधार ई-केवाईसी के आधार पर 10 मिनट के भीतर डिजिटल पीडीएफ प्रारूप में तत्काल और निःशुल्क ई-पैन आवंटन।",
+        eligibility: "Individual applicants who have never been allotted a PAN, possess an active Aadhaar card with mobile linked, and are not minors.",
+        eligibility_hi: "ऐसे भारतीय नागरिक जिनके पास पहले से पैन नहीं है, और जिनका आधार मोबाइल नंबर से जुड़ा हुआ है।",
+        documents_required: ["Aadhaar Card with active mobile linkage"],
+        official_url: "https://www.incometax.gov.in",
+        application_url: "https://eportal.incometax.gov.in/iec/foservices/#/pre-login/instant-e-pan",
+        application_url_verified: true,
+        auth_type: "aadhaar_otp",
+        auth_instructions: "Applicant enters Aadhaar number on the official Income Tax e-filing portal and verifies via OTP sent to Aadhaar-linked mobile. No physical documents required.",
+        digilocker_supported_on_portal: true,
+        digilocker_notes: "Once allotted, the digital PAN can be permanently imported into your DigiLocker account as an official verified document.",
+        fee_amount: 0.0,
+        fee_verified: true,
+        fee_source_url: "https://www.incometax.gov.in",
+        avedan_service_fee: 0.0
+      },
+      {
+        id: "pm-awas-urban",
+        name: "Pradhan Mantri Awas Yojana - Urban (PMAY-U 2.0)",
+        name_hi: "प्रधानमंत्री आवास योजना - शहरी (PMAY-U 2.0)",
+        category: "housing",
+        ministry: "Ministry of Housing and Urban Affairs",
+        state: "central",
+        description: "Central interest subsidy and financial assistance to urban poor families (EWS, LIG, and Middle Income) for constructing or purchasing their first pucca house.",
+        description_hi: "शहरी गरीब और मध्यम आय वर्ग के परिवारों को अपना पहला पक्का घर बनाने या खरीदने के लिए ब्याज सब्सिडी और वित्तीय सहायता।",
+        eligibility: "Urban families not owning a pucca house anywhere in India. Annual household income categories: EWS (up to ₹3 Lakhs), LIG (₹3 to ₹6 Lakhs), MIG (₹6 to ₹9 Lakhs).",
+        eligibility_hi: "ऐसे परिवार जिनके पास भारत में कहीं भी पक्का मकान नहीं है और जो ईडब्ल्यूएस या एलआईजी आय सीमा में आते हैं।",
+        documents_required: ["Aadhaar Card of all family members", "Income Certificate / ITR", "Bank Passbook / Cancelled Cheque", "Proof of Residence"],
+        official_url: "https://pmay-urban.gov.in",
+        application_url: "https://pmay-urban.gov.in",
+        application_url_verified: true,
+        auth_type: "aadhaar_otp",
+        auth_instructions: "Online registration requires Aadhaar OTP verification of the head of the family on the official PMAY-U portal.",
+        digilocker_supported_on_portal: false,
+        digilocker_notes: "DigiLocker is not directly mandated on the PMAY-U registration portal; documents are uploaded directly during online application.",
+        fee_amount: 0.0,
+        fee_verified: true,
+        fee_source_url: "https://pmay-urban.gov.in",
+        avedan_service_fee: 0.0
+      },
+      {
+        id: "rural-artisan-grant-unverified",
+        name: "Rural Traditional Artisan Welfare Grant",
+        name_hi: "ग्रामीण पारंपरिक कारीगर कल्याण अनुदान (अपुष्ट लिंक)",
+        category: "agriculture",
+        ministry: "Department of Rural Development",
+        state: "Uttar Pradesh",
+        description: "Proposed state welfare initiative for traditional village artisans and craftspeople. Portal migration in progress.",
+        description_hi: "पारंपरिक ग्रामीण कारीगरों के लिए प्रस्तावित राज्य कल्याणकारी योजना। पोर्टल आधुनिकीकरण प्रगति पर है।",
+        eligibility: "Rural artisans holding traditional craft trade certification.",
+        eligibility_hi: "पारंपरिक शिल्प कौशल प्रमाण पत्र रखने वाले ग्रामीण कारीगर।",
+        documents_required: ["Aadhaar Card", "Artisan Registration Certificate", "Local Gram Panchayat Recommendation"],
+        official_url: "http://rd.up.gov.in",
+        application_url: null,
+        application_url_verified: false,
+        auth_type: "unverified",
+        auth_instructions: "Online application portal is currently undergoing maintenance and upgrade. Citizens should visit the local District Rural Development Agency (DRDA) office.",
+        digilocker_supported_on_portal: false,
+        fee_amount: null,
+        fee_verified: false,
+        fee_source_url: null,
+        avedan_service_fee: 0.0
+      }
+    ];
+
+    const FALLBACK_GUIDELINES = [
+      {
+        title: "Always verify official government domains",
+        detail: "Only authenticate DigiLocker on portals ending with .gov.in, .nic.in, or official SSO (meripehchaan.gov.in). Never enter your credentials on private websites."
+      },
+      {
+        title: "Never share your 6-digit DigiLocker PIN or OTP",
+        detail: "AVEDAN AI and government officials will never ask for your DigiLocker PIN, Aadhaar OTP, or login password. Do not share them with anyone or any AI tool."
+      },
+      {
+        title: "Individual Document Consent",
+        detail: "When an official government portal asks to fetch a document from DigiLocker, it will clearly list the exact document requested (e.g. Caste Certificate or Marksheet) and require your explicit consent."
+      },
+      {
+        title: "DigiLocker is Free",
+        detail: "DigiLocker is a free digital public infrastructure provided by the Government of India. There are no fees to view, link, or download your verified digital documents."
+      }
+    ];
+
+    // Multilingual Translations Dictionary
+    const I18N = {
+      en: {
+        brandSub: "Government Scheme Assistant • Official Citizen Portal",
+        zeroFeeBadge: "₹0 Service Fee • 100% Free",
+        bannerNoCreds: "Zero Credential Policy: AVEDAN never asks for your DigiLocker PIN, password, or OTP.",
+        bannerVerifiedLinks: "Verified Links: Every scheme directs to official .gov.in or .nic.in portals only.",
+        bannerDirectPay: "Direct Govt Payments: All fees are paid directly to government portals. No intermediaries.",
+        tabSchemes: "Explore Schemes",
+        tabTracker: "My Application Tracker",
+        tabDigiLocker: "DigiLocker Safety",
+        tabPolicy: "Zero-Fee & Payment Policy",
+        searchPlaceholder: "Search schemes e.g. farmer, health, scholarship, driving licence...",
+        btnSearch: "Search",
+        filterDigilocker: "DigiLocker supported on portal",
+        filterFree: "Free Schemes Only (₹0 Fee)",
+        continueOfficial: "Continue to Official Application ↗",
+        linkNotVerified: "Official application link not verified",
+        viewDetails: "View Details & Checklist",
+        trackScheme: "Track Progress",
+        chatBtnLabel: "Ask AVEDAN AI",
+        chatTitle: "AVEDAN AI Assistant",
+        welcomeMsg: "Hello! I am AVEDAN AI, your government schemes assistant. Ask me about any central or state scheme. I will never ask for your PIN or OTP, and our service is 100% free (₹0).",
+        trackerTitle: "Citizen Application Journey Tracker",
+        trackerDesc: "Track your progress for schemes you are applying for. AVEDAN never claims an application is submitted or paid unless officially verified by government APIs.",
+        savedStatus: "Saved to Tracker",
+        reportedStatus: "User Reported Submitted (Pending Official Verification)",
+      },
+      hi: {
+        brandSub: "Government Scheme Assistant • भारत सरकार योजना सहायक",
+        zeroFeeBadge: "₹0 सेवा शुल्क • पूर्णतः निःशुल्क",
+        bannerNoCreds: "गोपनीयता नीति: आवेदन एआई कभी भी आपका डिजीलॉकर पिन, पासवर्ड या ओटीपी नहीं मांगता।",
+        bannerVerifiedLinks: "प्रमाणित लिंक: प्रत्येक योजना केवल आधिकारिक .gov.in या .nic.in पोर्टल पर ले जाती है।",
+        bannerDirectPay: "सीधा सरकारी भुगतान: सभी शुल्क सीधे सरकारी पोर्टल पर जमा होते हैं। कोई मध्यस्थ नहीं।",
+        tabSchemes: "योजनाएं खोजें",
+        tabTracker: "आवेदन ट्रैकर",
+        tabDigiLocker: "डिजीलॉकर सुरक्षा",
+        tabPolicy: "सरकारी शुल्क एवं नीति",
+        searchPlaceholder: "योजनाएं खोजें, जैसे किसान, आयुष्मान, छात्रवृत्ति, ड्राइविंग लाइसेंस...",
+        btnSearch: "खोजें",
+        filterDigilocker: "पोर्टल पर डिजीलॉकर समर्थित",
+        filterFree: "केवल निःशुल्क योजनाएं (₹0 शुल्क)",
+        continueOfficial: "आधिकारिक आवेदन पर जाएं ↗",
+        linkNotVerified: "आधिकारिक आवेदन लिंक अपुष्ट है",
+        viewDetails: "विवरण एवं दस्तावेज सूची",
+        trackScheme: "ट्रैक करें",
+        chatBtnLabel: "एआई से पूछें",
+        chatTitle: "आवेदन एआई सहायक",
+        welcomeMsg: "नमस्ते! मैं आवेदन एआई (AVEDAN AI) हूँ। आप किसी भी सरकारी योजना के बारे में पूछ सकते हैं। हम कभी भी आपका पिन या ओटीपी नहीं मांगते, और हमारी सेवा पूर्णतः निःशुल्क (₹0) है।",
+        trackerTitle: "नागरिक आवेदन ट्रैकर",
+        trackerDesc: "जिन योजनाओं के लिए आप आवेदन कर रहे हैं, उनकी प्रगति ट्रैक करें। जब तक आधिकारिक एपीआई से पुष्टि न हो, तब तक हम आवेदन पूर्ण होने का दावा नहीं करते।",
+        savedStatus: "ट्रैकर में सहेजा गया",
+        reportedStatus: "उपयोगकर्ता द्वारा सबमिट (आधिकारिक पुष्टि लंबित)",
+      },
+      mr: {
+        brandSub: "शासकीय योजना साहाय्यक • अधिकृत नागरिक पोर्टल",
+        zeroFeeBadge: "₹0 सेवा शुल्क • १००% मोफत",
+        bannerNoCreds: "सुरक्षा नियम: आवेदन एआय कधीही तुमचा डिजिलॉकर पिन किंवा ओटीपी मागत नाही.",
+        bannerVerifiedLinks: "प्रमाणित लिंक्स: प्रत्येक योजना केवळ अधिकृत .gov.in वर घेऊन जाते.",
+        bannerDirectPay: "थेट सरकारी पेमेंट: सर्व शुल्क थेट शासकीय पोर्टलवर भरा.",
+        tabSchemes: "योजना शोधा",
+        tabTracker: "अर्ज ट्रॅकर",
+        tabDigiLocker: "डिजिलॉकर सुरक्षा",
+        tabPolicy: "शुल्क व पारदर्शकता",
+        searchPlaceholder: "योजना शोधा उदा. शेतकरी, आरोग्य, शिष्यवृत्ती...",
+        btnSearch: "शोधा",
+        filterDigilocker: "पोर्टलवर डिजिलॉकर उपलब्ध",
+        filterFree: "केवळ मोफत योजना",
+        continueOfficial: "अधिकृत अर्जाकडे जा ↗",
+        linkNotVerified: "अधिकृत अर्ज लिंक पडताळलेली नाही",
+        viewDetails: "तपशील व कागदपत्रे",
+        trackScheme: "ट्रॅक करा",
+        chatBtnLabel: "एआय ला विचारा",
+        chatTitle: "आवेदन एआय सहाय्यक",
+        welcomeMsg: "नमस्कार! मी आवेदन एआय आहे. मी सरकारी योजनांची माहिती देतो. आम्ही कधीही पासवर्ड किंवा ओटीपी मागत नाही.",
+        trackerTitle: "नागरिक अर्ज ट्रॅकर",
+        trackerDesc: "तुमच्या अर्जांची प्रगती ट्रॅक करा.",
+        savedStatus: "जतन केले",
+        reportedStatus: "वापरकर्त्याने नोंदवले (पडताळणी प्रलंबित)",
+      },
+      ta: {
+        brandSub: "அரசு திட்டங்கள் உதவியாளர் • குடிமக்கள் போர்டல்",
+        zeroFeeBadge: "₹0 சேவைக் கட்டணம் • முற்றிலும் இலவசம்",
+        bannerNoCreds: "பாதுகாப்புக் கொள்கை: டிஜிலாக்கர் பின் அல்லது ஓடிபி-ஐ ஒருபோதும் கேட்க மாட்டோம்.",
+        bannerVerifiedLinks: "சரிபார்க்கப்பட்ட இணைப்புகள்: அதிகாரப்பூர்வ .gov.in இணையதளங்கள் மட்டுமே.",
+        bannerDirectPay: "நேரடி அரசு கட்டணம்: கட்டணங்களை அரசு போர்ட்டலில் நேரடியாக செலுத்தவும்.",
+        tabSchemes: "திட்டங்களை காண்க",
+        tabTracker: "விண்ணப்ப கண்காணிப்பு",
+        tabDigiLocker: "டிஜிலாக்கர் பாதுகாப்பு",
+        tabPolicy: "கட்டணக் கொள்கை",
+        searchPlaceholder: "திட்டங்களைத் தேடுங்கள்...",
+        btnSearch: "தேடு",
+        filterDigilocker: "டிஜிலாக்கர் ஆதரவு உள்ளது",
+        filterFree: "இலவச திட்டங்கள் மட்டும்",
+        continueOfficial: "அதிகாரப்பூர்வ விண்ணப்பத்திற்கு செல்க ↗",
+        linkNotVerified: "அதிகாரப்பூர்வ இணைப்பு சரிபார்க்கப்படவில்லை",
+        viewDetails: "விவரங்களை காண்க",
+        trackScheme: "கண்காணிக்க",
+        chatBtnLabel: "AI-யிடம் கேளுங்கள்",
+        chatTitle: "AVEDAN AI உதவியாளர்",
+        welcomeMsg: "வணக்கம்! நான் AVEDAN AI அரசு திட்ட உதவியாளர்.",
+        trackerTitle: "விண்ணப்ப கண்காணிப்பு",
+        trackerDesc: "உங்கள் விண்ணப்ப முன்னேற்றத்தைக் கண்காணிக்கவும்.",
+        savedStatus: "சேமிக்கப்பட்டது",
+        reportedStatus: "பயனர் சமர்ப்பித்தது (சரிபார்ப்பு நிலுவையில்)",
+      },
+      bn: {
+        brandSub: "সরকারি প্রকল্প সহায়ক • নাগরিক পোর্টাল",
+        zeroFeeBadge: "₹০ সার্ভিস চার্জ • সম্পূর্ণ বিনামূল্যে",
+        bannerNoCreds: "সুরক্ষা নীতি: আমরা কখনোই ডিজিট্যাল লকার পিন বা ওটিপি চাই না।",
+        bannerVerifiedLinks: "যাচাইকৃত লিঙ্ক: শুধুমাত্র অফিসিয়াল .gov.in সাইট।",
+        bannerDirectPay: "সরাসরি সরকারি পেমেন্ট: কোনো মধ্যস্থতাকারী নেই।",
+        tabSchemes: "প্রকল্প খুঁজুন",
+        tabTracker: "আবেদন ট্র্যাকার",
+        tabDigiLocker: "ডিজিলকার নিরাপত্তা",
+        tabPolicy: "ফি ও নীতি",
+        searchPlaceholder: "প্রকল্প অনুসন্ধান করুন...",
+        btnSearch: "খুঁজুন",
+        filterDigilocker: "ডিজিলকার সমর্থিত",
+        filterFree: "বিনামূল্যে প্রকল্পসমূহ",
+        continueOfficial: "অফিসিয়াল আবেদনে যান ↗",
+        linkNotVerified: "অফিসিয়াল আবেদন লিঙ্ক যাচাই করা হয়নি",
+        viewDetails: "বিস্তারিত দেখুন",
+        trackScheme: "ট্র্যাক করুন",
+        chatBtnLabel: "AI কে জিজ্ঞাসা করুন",
+        chatTitle: "আবেদন এআই সহায়ক",
+        welcomeMsg: "নমস্কার! আমি আবেদন এআই। সরকারি প্রকল্প সম্পর্কে যেকোনো প্রশ্ন করুন।",
+        trackerTitle: "আবেদন ট্র্যাকার",
+        trackerDesc: "আপনার আবেদনের অগ্রগতি ট্র্যাক করুন।",
+        savedStatus: "সংরক্ষিত",
+        reportedStatus: "ব্যবহারকারী দ্বারা জমা দেওয়া (যাচাইকরণ মুলতুবি)",
+      }
+    };
+
+    function changeLanguage(lang) {
+      currentLanguage = lang;
+      const t = I18N[lang] || I18N.en;
+
+      document.getElementById('ui-brand-sub').textContent = t.brandSub;
+      document.getElementById('ui-zero-fee-badge').textContent = t.zeroFeeBadge;
+      document.getElementById('ui-banner-no-creds').innerHTML = `<strong>Zero Credential Policy:</strong> ${t.bannerNoCreds}`;
+      document.getElementById('ui-banner-verified-links').innerHTML = `<strong>Verified Links:</strong> ${t.bannerVerifiedLinks}`;
+      document.getElementById('ui-banner-direct-pay').innerHTML = `<strong>Direct Govt Payments:</strong> ${t.bannerDirectPay}`;
+      document.getElementById('ui-tab-schemes').textContent = t.tabSchemes;
+      document.getElementById('ui-tab-tracker').textContent = t.tabTracker;
+      document.getElementById('ui-tab-digilocker').textContent = t.tabDigiLocker;
+      document.getElementById('ui-tab-policy').textContent = t.tabPolicy;
+      document.getElementById('scheme-search-input').placeholder = t.searchPlaceholder;
+      document.getElementById('ui-btn-search').textContent = t.btnSearch;
+      document.getElementById('ui-filter-digilocker').textContent = t.filterDigilocker;
+      document.getElementById('ui-filter-free').textContent = t.filterFree;
+      document.getElementById('ui-chat-btn-label').textContent = t.chatBtnLabel;
+      document.getElementById('ui-chat-title').textContent = t.chatTitle;
+      document.getElementById('chat-welcome-msg').textContent = t.welcomeMsg;
+      document.getElementById('ui-tracker-title').textContent = t.trackerTitle;
+      document.getElementById('ui-tracker-desc').textContent = t.trackerDesc;
+
+      renderSchemes(cachedSchemes);
+      renderTracker();
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.section-view').forEach(view => view.classList.remove('active'));
+
+      const activeBtn = document.getElementById(`tab-${tabId}`);
+      const activeView = document.getElementById(`view-${tabId}`);
+      if (activeBtn) activeBtn.classList.add('active');
+      if (activeView) activeView.classList.add('active');
+
+      if (tabId === 'tracker') {
+        loadApplications();
+      } else if (tabId === 'digilocker') {
+        loadDigiLockerGuidelines();
+      }
+    }
+
+    function filterCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      searchSchemes();
+    }
+
+    async function searchSchemes() {
+      const q = document.getElementById('scheme-search-input').value.trim();
+      const digilockerOnly = document.getElementById('toggle-digilocker').checked;
+      const freeOnly = document.getElementById('toggle-free').checked;
+
+      let url = `${API_BASE}/schemes?category=${currentCategory}`;
+      if (q) url += `&query=${encodeURIComponent(q)}`;
+      if (digilockerOnly) url += `&digilocker_only=true`;
+      if (freeOnly) url += `&free_only=true`;
+
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("API returned status " + res.status);
+        const data = await res.json();
+        cachedSchemes = data.schemes || [];
+      } catch (err) {
+        // Standalone / Netlify Static Fallback
+        cachedSchemes = FALLBACK_SCHEMES.filter(s => {
+          if (currentCategory !== 'all' && s.category !== currentCategory) return false;
+          if (digilockerOnly && !s.digilocker_supported_on_portal) return false;
+          if (freeOnly && s.fee_amount !== 0) return false;
+          if (q) {
+            const query = q.toLowerCase();
+            return (s.name && s.name.toLowerCase().includes(query)) ||
+                   (s.name_hi && s.name_hi.toLowerCase().includes(query)) ||
+                   (s.description && s.description.toLowerCase().includes(query)) ||
+                   (s.eligibility && s.eligibility.toLowerCase().includes(query));
+          }
+          return true;
+        });
+      }
+      renderSchemes(cachedSchemes);
+    }
+
+    function renderSchemes(schemes) {
+      const container = document.getElementById('schemes-grid-container');
+      const t = I18N[currentLanguage] || I18N.en;
+
+      if (!schemes || schemes.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: white; border-radius: 12px; border: 1px solid var(--border);">
+            <p style="font-size: 1.1rem; color: var(--text-muted);">No schemes found matching your criteria.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = schemes.map(s => {
+        const title = (currentLanguage === 'hi' && s.name_hi) ? s.name_hi : s.name;
+        const desc = (currentLanguage === 'hi' && s.description_hi) ? s.description_hi : s.description;
+        const isFree = s.fee_amount === 0.0 || s.fee_amount === null;
+        const feeText = isFree ? "Free (₹0.00)" : `₹${s.fee_amount.toFixed(2)}`;
+        
+        let authBadge = '';
+        if (s.digilocker_supported_on_portal) {
+          authBadge = `<span class="auth-type-pill digilocker">🔒 DigiLocker Supported on Portal</span>`;
+        } else if (s.auth_type === 'aadhaar_otp') {
+          authBadge = `<span class="auth-type-pill aadhaar">📱 Aadhaar OTP on Portal</span>`;
+        } else if (s.auth_type === 'unverified') {
+          authBadge = `<span class="auth-type-pill unverified">⚠️ Auth Method Unverified</span>`;
+        } else {
+          authBadge = `<span class="auth-type-pill aadhaar">🏛️ State Portal Login</span>`;
+        }
+
+        // Action Button: Strictly checks verification
+        let actionBtnHtml = '';
+        if (s.application_url_verified && s.application_url) {
+          actionBtnHtml = `
+            <a href="${s.application_url}" target="_blank" rel="noopener noreferrer" class="btn-continue-official" onclick="recordContinueAction('${s.id}')">
+              <span>${t.continueOfficial}</span>
+            </a>
+          `;
+        } else {
+          actionBtnHtml = `
+            <div class="unverified-banner-btn" title="We strictly never invent unverified URLs">
+              <span>⚠️ ${t.linkNotVerified}</span>
+            </div>
+          `;
+        }
+
+        return `
+          <article class="scheme-card">
+            <div>
+              <div class="card-header">
+                <span class="domain-badge ${s.application_url_verified ? 'verified' : 'unverified'}">
+                  ${s.application_url_verified ? '✓ Official .gov.in Portal' : '⚠️ Link Under Verification'}
+                </span>
+                <h3 class="scheme-title">${title}</h3>
+                <div class="scheme-ministry">${s.ministry || 'Government of India'}</div>
+              </div>
+
+              ${authBadge}
+
+              <p class="scheme-desc">${desc}</p>
+            </div>
+
+            <div>
+              <div class="fee-box">
+                <div class="fee-row">
+                  <span>Official Govt Fee:</span>
+                  <span style="font-weight: 700;">${s.fee_verified ? feeText : 'Under Verification'}</span>
+                </div>
+                <div class="fee-row">
+                  <span>AVEDAN AI Fee:</span>
+                  <span>₹0.00 (Free)</span>
+                </div>
+              </div>
+
+              <div class="card-actions">
+                ${actionBtnHtml}
+                <div class="card-secondary-actions">
+                  <button class="btn-secondary" onclick="openSchemeModal('${s.id}')">${t.viewDetails}</button>
+                  <button class="btn-secondary" onclick="trackScheme('${s.id}')">${t.trackScheme}</button>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function openSchemeModal(schemeId) {
+      const s = cachedSchemes.find(item => item.id === schemeId);
+      if (!s) return;
+      const t = I18N[currentLanguage] || I18N.en;
+
+      document.getElementById('modal-title').textContent = (currentLanguage === 'hi' && s.name_hi) ? s.name_hi : s.name;
+      document.getElementById('modal-ministry').textContent = s.ministry || 'Government of India';
+      document.getElementById('modal-desc').textContent = (currentLanguage === 'hi' && s.description_hi) ? s.description_hi : s.description;
+      document.getElementById('modal-elig').textContent = (currentLanguage === 'hi' && s.eligibility_hi) ? s.eligibility_hi : s.eligibility;
+      document.getElementById('modal-auth-instructions').textContent = s.auth_instructions;
+      document.getElementById('modal-dl-notes').textContent = s.digilocker_notes || '';
+
+      const docsList = document.getElementById('modal-docs');
+      docsList.innerHTML = (s.documents_required || []).map(d => `<li>${d}</li>`).join('');
+
+      const isFree = s.fee_amount === 0.0 || s.fee_amount === null;
+      document.getElementById('modal-fee-govt').textContent = isFree ? "Free (₹0.00)" : `₹${s.fee_amount.toFixed(2)}`;
+      
+      const feeSourceEl = document.getElementById('modal-fee-source');
+      if (s.fee_verified && s.fee_source_url) {
+        feeSourceEl.innerHTML = `<span>✓ Verified from: <a href="${s.fee_source_url}" target="_blank" style="color: inherit;">Official Portal</a></span>`;
+      } else {
+        feeSourceEl.innerHTML = `<span>⚠️ Fee details pending official gazette confirmation</span>`;
+      }
+
+      const actionArea = document.getElementById('modal-action-area');
+      if (s.application_url_verified && s.application_url) {
+        actionArea.innerHTML = `
+          <a href="${s.application_url}" target="_blank" rel="noopener noreferrer" class="btn-continue-official" onclick="recordContinueAction('${s.id}')" style="padding: 0.85rem;">
+            ${t.continueOfficial}
+          </a>
+        `;
+      } else {
+        actionArea.innerHTML = `
+          <div class="unverified-banner-btn" style="padding: 0.85rem;">
+            ⚠️ ${t.linkNotVerified}
+          </div>
+        `;
+      }
+
+      document.getElementById('scheme-detail-modal').classList.add('open');
+    }
+
+    function closeModal() {
+      document.getElementById('scheme-detail-modal').classList.remove('open');
+    }
+
+    async function recordContinueAction(schemeId) {
+      try {
+        await fetch(`${API_BASE}/applications`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ scheme_id: schemeId, user_name: 'Citizen' })
+        });
+      } catch (e) {
+        // Safe fallback
+      }
+    }
+
+    async function trackScheme(schemeId) {
+      const s = cachedSchemes.find(item => item.id === schemeId);
+      const schemeName = s ? s.name : schemeId;
+      try {
+        const res = await fetch(`${API_BASE}/applications`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({ scheme_id: schemeId, user_name: 'Citizen' })
+        });
+        if (res.ok) {
+          alert("Scheme added to your Application Tracker! Click on 'My Application Tracker' tab to view.");
+          return;
+        }
+      } catch (e) {
+        // Fallback for Netlify
+      }
+      let saved = JSON.parse(localStorage.getItem('avedan_tracker') || '[]');
+      if (!saved.some(item => item.scheme_id === schemeId)) {
+        saved.push({
+          id: 'local-' + Date.now(),
+          scheme_id: schemeId,
+          scheme_name: schemeName,
+          status: 'saved',
+          status_label: 'Saved to Tracker',
+          official_fee_amount: s ? (s.fee_amount || 0) : 0,
+          avedan_service_fee: 0.0,
+          payment_status_label: s && s.fee_amount > 0 ? 'Official fee to be paid directly on government portal' : 'Free (No fee)',
+          official_acknowledgment_number: null
+        });
+        localStorage.setItem('avedan_tracker', JSON.stringify(saved));
+      }
+      alert("Scheme added to your Application Tracker! Click on 'My Application Tracker' tab to view.");
+    }
+
+    async function loadApplications() {
+      try {
+        const res = await fetch(`${API_BASE}/applications`);
+        if (!res.ok) throw new Error("API error");
+        const data = await res.json();
+        trackedApplications = data.applications || [];
+      } catch (err) {
+        trackedApplications = JSON.parse(localStorage.getItem('avedan_tracker') || '[]');
+      }
+      renderTracker();
+    }
+
+    function renderTracker() {
+      const container = document.getElementById('tracker-grid-container');
+      const t = I18N[currentLanguage] || I18N.en;
+
+      if (!trackedApplications || trackedApplications.length === 0) {
+        container.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 2.5rem; background: white; border-radius: 12px; border: 1px solid var(--border);">
+            <p style="font-size: 1rem; color: var(--text-muted);">You have not saved any schemes to your tracker yet. Browse schemes and click 'Track Progress'.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = trackedApplications.map(app => {
+        return `
+          <div class="scheme-card">
+            <div>
+              <div class="card-header">
+                <span class="auth-type-pill aadhaar">${app.status_label}</span>
+                <h3 class="scheme-title">${app.scheme_name}</h3>
+                <div class="scheme-ministry">Status: ${app.status}</div>
+              </div>
+
+              <div class="fee-box">
+                <div class="fee-row">
+                  <span>Govt Fee:</span>
+                  <span>₹${app.official_fee_amount}</span>
+                </div>
+                <div class="fee-row">
+                  <span>AVEDAN Fee:</span>
+                  <span>₹0.00</span>
+                </div>
+                <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">
+                  ${app.payment_status_label}
+                </div>
+              </div>
+
+              <div style="font-size: 0.82rem; margin-bottom: 1rem; background: #f8fafc; padding: 0.5rem; border-radius: 6px;">
+                <strong>Official Ref No:</strong> ${app.official_acknowledgment_number || 'Not logged yet'}
+              </div>
+            </div>
+
+            <div>
+              <div style="display: flex; gap: 0.5rem;">
+                <input type="text" placeholder="Enter Ref No e.g. PMK-987" id="ack-${app.id}" class="search-input" style="padding: 0.4rem 0.6rem; font-size: 0.78rem;">
+                <button class="btn-primary" onclick="saveAckNumber('${app.id}')" style="padding: 0.4rem 0.75rem; font-size: 0.78rem;">Save</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function saveAckNumber(appId) {
+      const input = document.getElementById(`ack-${appId}`);
+      if (!input || !input.value.trim()) return;
+      const ref = input.value.trim();
+
+      try {
+        await fetch(`${API_BASE}/applications/${appId}/progress`, {
+          method: 'PATCH',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            status: 'user_reported_submitted',
+            official_acknowledgment_number: ref
+          })
+        });
+      } catch (e) {
+        // Fallback for Netlify
+      }
+      let saved = JSON.parse(localStorage.getItem('avedan_tracker') || '[]');
+      const found = saved.find(item => item.id === appId);
+      if (found) {
+        found.status = 'user_reported_submitted';
+        found.status_label = 'User Reported Submitted (Pending Official Verification)';
+        found.official_acknowledgment_number = ref;
+        localStorage.setItem('avedan_tracker', JSON.stringify(saved));
+      }
+      loadApplications();
+    }
+
+    async function loadDigiLockerGuidelines() {
+      const list = document.getElementById('digilocker-guidelines-list');
+      try {
+        const res = await fetch(`${API_BASE}/digilocker/guidelines`);
+        if (!res.ok) throw new Error("API error");
+        const data = await res.json();
+        list.innerHTML = (data.guidelines || []).map(g => `
+          <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem;">
+            <strong style="color: var(--primary); font-size: 0.9rem;">${g.title}</strong>
+            <p style="font-size: 0.84rem; color: var(--text); margin-top: 0.25rem;">${g.detail}</p>
+          </div>
+        `).join('');
+      } catch (err) {
+        list.innerHTML = FALLBACK_GUIDELINES.map(g => `
+          <div style="background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem;">
+            <strong style="color: var(--primary); font-size: 0.9rem;">${g.title}</strong>
+            <p style="font-size: 0.84rem; color: var(--text); margin-top: 0.25rem;">${g.detail}</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Chat Drawer Handlers
+    function toggleChat() {
+      const drawer = document.getElementById('chat-drawer');
+      drawer.classList.toggle('open');
+      if (drawer.classList.contains('open')) {
+        document.getElementById('chat-input-text').focus();
+      }
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById('chat-input-text');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const messagesDiv = document.getElementById('chat-messages');
+
+      // Append user bubble
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user';
+      userBubble.textContent = text;
+      messagesDiv.appendChild(userBubble);
+      input.value = '';
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      // Loading bubble
+      const loadingBubble = document.createElement('div');
+      loadingBubble.className = 'chat-bubble assistant';
+      loadingBubble.textContent = 'Thinking...';
+      messagesDiv.appendChild(loadingBubble);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+      // Check security guardrail on client side first
+      const lower = text.toLowerCase();
+      if (lower.includes('otp') || lower.includes('pin') || lower.includes('password') || lower.includes('cvv')) {
+        loadingBubble.innerHTML = '⚠️ <strong>Safety Alert:</strong> AVEDAN AI will NEVER ask for your DigiLocker PIN, password, bank card, or OTP. Never share your confidential credentials with any AI tool or person.';
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        return;
+      }
+      if (lower.includes('pay you') || lower.includes('razorpay') || lower.includes('service charge')) {
+        loadingBubble.innerHTML = 'ℹ️ <strong>Zero-Fee Policy:</strong> AVEDAN AI charges ₹0 service fees and does not collect or process money. Any official government fee must be paid directly on the verified official portal.';
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE}/chat`, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({
+            message: text,
+            language: currentLanguage
+          })
+        });
+        if (!res.ok) throw new Error("API error");
+        const data = await res.json();
+        loadingBubble.innerHTML = data.reply.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      } catch (err) {
+        // Intelligent Netlify Client-side Assistant Fallback
+        const match = FALLBACK_SCHEMES.find(s => 
+          text.toLowerCase().includes(s.name.toLowerCase()) || 
+          (s.name_hi && text.includes(s.name_hi)) || 
+          text.toLowerCase().includes(s.category.toLowerCase()) ||
+          (text.toLowerCase().includes('kisan') && s.id === 'pm-kisan') ||
+          (text.toLowerCase().includes('health') && s.id === 'ayushman-bharat') ||
+          (text.toLowerCase().includes('scholarship') && s.id === 'national-scholarship-portal') ||
+          (text.toLowerCase().includes('licence') && s.id === 'parivahan-driving-licence') ||
+          (text.toLowerCase().includes('pan') && s.id === 'instant-e-pan')
+        );
+
+        if (match) {
+          const title = (currentLanguage === 'hi' && match.name_hi) ? match.name_hi : match.name;
+          const desc = (currentLanguage === 'hi' && match.description_hi) ? match.description_hi : match.description;
+          const fee = match.fee_amount === 0 ? "Free (₹0.00)" : `₹${match.fee_amount}`;
+          loadingBubble.innerHTML = `
+            <strong>${title}</strong><br>
+            • ${desc}<br>
+            • <strong>Government Fee:</strong> ${fee} | AVEDAN Fee: ₹0.00 (Free)<br>
+            • <strong>Authentication:</strong> ${match.auth_instructions}<br>
+            • <strong>Official Link:</strong> ${match.application_url || 'Official application link not verified'}
+          `;
+        } else {
+          loadingBubble.innerHTML = currentLanguage === 'hi' ? 
+            "नमस्ते! आप किसी भी सरकारी योजना (जैसे पीएम-किसान, आयुष्मान भारत, छात्रवृत्ति) के बारे में पूछ सकते हैं। हमारी सेवा पूर्णतः निःशुल्क (₹0) है और हम कभी भी पासवर्ड या ओटीपी नहीं मांगते।" :
+            "Hello! You can ask about any government scheme (such as PM-Kisan, Ayushman Bharat, Scholarships, or Driving Licences). AVEDAN AI is 100% free and never asks for PINs or OTPs.";
+        }
+      }
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    // Initial Load
+    window.addEventListener('DOMContentLoaded', () => {
+      searchSchemes();
+    });
+  </script>
+</body>
+</html>

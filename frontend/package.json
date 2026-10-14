@@ -1,0 +1,17 @@
+{
+  "name": "avedan-ai-frontend",
+  "version": "1.0.0",
+  "description": "AVEDAN AI - Accessible, multilingual citizen assistant for Indian government schemes",
+  "scripts": {
+    "start": "npx serve . -p 5173"
+  },
+  "keywords": [
+    "digilocker",
+    "government-schemes",
+    "accessibility",
+    "multilingual",
+    "india"
+  ],
+  "author": "AVEDAN AI Team",
+  "license": "MIT"
+}
